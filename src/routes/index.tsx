@@ -1,24 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import type { CategoryId } from "@/data/site";
+import { Header } from "@/components/joulia/Header";
+import { Hero } from "@/components/joulia/Hero";
+import { Categories } from "@/components/joulia/Categories";
+import { About } from "@/components/joulia/About";
+import { Gallery } from "@/components/joulia/Gallery";
+import { ContactBanner } from "@/components/joulia/ContactBanner";
+import { Footer } from "@/components/joulia/Footer";
+import { SearchDialog } from "@/components/joulia/SearchDialog";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Joulia Concept + — Meubles & Décoration à Sfax" },
+      { name: "description", content: "Mobilier élégant et décoration raffinée à Sfax, Tunisie. Séjours, chambres, salles à manger et décoration." },
+      { property: "og:title", content: "Joulia Concept + — L'art de vivre chez soi" },
+      { property: "og:description", content: "Mobilier élégant, décoration raffinée pour un intérieur qui vous ressemble." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [filter, setFilter] = useState<CategoryId | "all">("all");
+  const [search, setSearch] = useState(false);
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen overflow-x-hidden">
+      <Header onSearch={() => setSearch(true)} />
+      <main>
+        <Hero />
+        <Categories onSelect={setFilter} />
+        <About />
+        <Gallery filter={filter} setFilter={setFilter} />
+        <ContactBanner />
+      </main>
+      <Footer />
+      {search && <SearchDialog onClose={() => setSearch(false)} onPick={setFilter} />}
     </div>
   );
 }
