@@ -3,8 +3,8 @@ import { images } from "@/data/site";
 
 export function Hero() {
   return (
-    <section id="accueil" className="relative flex min-h-[640px] items-center overflow-hidden text-primary-foreground lg:h-[100svh] lg:max-h-[860px]">
-      <img src={images.hero} alt="Showroom Joulia Concept +" width={1920} height={960} className="absolute inset-0 h-full w-full object-cover object-[65%_center]" />
+    <section id="accueil" className="relative flex min-h-[600px] items-center overflow-hidden text-primary-foreground lg:h-[640px]">
+      <img src={images.hero} alt="Showroom Joulia Concept +" width={1920} height={960} className="absolute inset-0 h-full w-full object-cover object-[60%_70%]" />
       <div className="absolute inset-0 bg-hero-overlay" />
       <div className="relative mx-auto w-full max-w-[1400px] px-5 pt-24 pb-24 sm:px-10 lg:px-[4.5rem]">
         <div className="max-w-xl animate-rise">
